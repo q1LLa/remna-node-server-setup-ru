@@ -24,11 +24,6 @@ wait_for_apt() {
 # --- 0. Сбор данных ---
 echo -e "${CYAN}=== Сбор конфигурационных данных ===${RESET}"
 
-# Вопрос про Timeweb с дефолтом "N"
-echo -ne "${GREEN}[?]${RESET} Это сервер Timeweb? [y/N]: "
-read -r IS_TIMEWEB
-IS_TIMEWEB=$(echo "$IS_TIMEWEB" | tr '[:upper:]' '[:lower:]')
-
 echo -ne "${GREEN}[?]${RESET} Введите SECRET_KEY: "
 read -r USER_SECRET_KEY
 echo -ne "${GREEN}[?]${RESET} Введите URL Webhook: "
@@ -65,13 +60,6 @@ sudo sysctl -p
 # --- 3. Docker ---
 echo -e "\n${BLUE}[3/8] Проверка Docker...${RESET}"
 command -v docker &> /dev/null || sudo curl -fsSL https://get.docker.com | sh
-
-# Настройка зеркала для Timeweb (выполняется сразу после установки/проверки Docker)
-if [[ "$IS_TIMEWEB" == "y" || "$IS_TIMEWEB" == "yes" ]]; then
-    echo -e "${YELLOW}[ИНФО] Применение Docker mirror для Timeweb...${RESET}"
-    echo '{"registry-mirrors": ["https://dockerhub.timeweb.cloud"]}' | sudo tee /etc/docker/daemon.json
-    sudo systemctl reload docker
-fi
 
 # --- 4. Настройка ноды Remnanode ---
 echo -e "\n${BLUE}[4/8] Настройка контейнера ноды...${RESET}"
@@ -144,5 +132,5 @@ EOF'
 
 # --- ФИНАЛ ---
 echo -e "\n${GREEN}=======================================${RESET}"
-echo -e "${GREEN}    Настройка успешно завершена!      ${RESET}"
+echo -e "${GREEN}    Настройка успешно завершена!       ${RESET}"
 echo -e "${GREEN}=======================================${RESET}\n"
