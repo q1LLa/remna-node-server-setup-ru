@@ -89,6 +89,12 @@ for port in "${PORTS[@]}"; do
     sudo ufw allow "$port"/tcp > /dev/null
 done
 
+# Блокировка исходящего спам-трафика (SMTP)
+MAIL_PORTS=(25 465 587)
+for m_port in "${MAIL_PORTS[@]}"; do
+    sudo ufw deny out "$m_port" > /dev/null
+done
+
 # Включаем файрвол с сохраненными правилами
 sudo ufw --force enable
 
