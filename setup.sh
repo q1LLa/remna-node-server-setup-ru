@@ -65,7 +65,7 @@ sudo cat <<EOF > "$COMPOSE_FILE"
 services:
   remnanode:
     container_name: remnanode
-    image: remnawave/node:latest
+    image: remnawave/node:2.8.0
     volumes:
       - "/var/log/remnanode:/var/log/remnanode"
     network_mode: host
