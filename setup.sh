@@ -59,6 +59,13 @@ sudo curl -fsSL https://get.docker.com | sh
 sudo systemctl enable --now docker
 sudo systemctl restart docker
 
+# --- 3.1. Сбрасываем счетчик ошибок systemd и запускаем ---
+echo -e "\n${BLUE}[3.1/6] Сбрасываем счетчик ошибок systemd и запускаем...${RESET}"
+sudo systemctl reset-failed docker.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now docker
+sudo systemctl restart docker
+
 # --- 4. Настройка ноды Remnanode ---
 echo -e "\n${BLUE}[4/6] Настройка контейнера ноды...${RESET}"
 sudo mkdir -p /var/log/remnanode /opt/remnanode
