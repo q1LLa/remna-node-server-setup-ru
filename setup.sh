@@ -54,8 +54,8 @@ EOF'
 sudo sysctl -p
 
 # --- 3. Docker ---
-echo -e "\n${BLUE}[3/6] Проверка Docker...${RESET}"
-command -v docker &> /dev/null || sudo curl -fsSL https://get.docker.com | sh
+echo -e "\n${BLUE}[3/6] Установка Docker...${RESET}"
+sudo curl -fsSL https://get.docker.com | sh
 
 # --- 4. Настройка ноды Remnanode ---
 echo -e "\n${BLUE}[4/6] Настройка контейнера ноды...${RESET}"
